@@ -1,0 +1,26 @@
+{
+  "name": "gill",
+  "version": "0.0.1",
+  "description": "",
+  "dependencies": {
+  },
+  "type": "commonjs",
+  "main": "./src/index.ts",
+  "keywords": [
+  ],
+  "homepage": "https://github.com/nickfrosty/gill#readme",
+  "bugs": {
+    "url": "https://github.com/nickfrosty/gill/issues"
+  },
+  "repository": {
+    "name": "nickfrosty/gill",
+    "type": "git",
+    "url": "https://github.com/nickfrosty/gill"
+  },
+  "contributors": [
+    {
+      "name": "Nick Frostbutter",
+      "url": "https://github.com/nickfrosty"
+    }
+  ]
+}

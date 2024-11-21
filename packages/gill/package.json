@@ -13,19 +13,23 @@
   "exports": {
     ".": {
       "import": "./dist/index.node.mjs",
-      "require": "./dist/index.node.cjs"
+      "require": "./dist/index.node.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./edge-light": {
       "import": "./dist/index.node.mjs",
-      "require": "./dist/index.node.cjs"
+      "require": "./dist/index.node.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./workerd": {
       "import": "./dist/index.node.mjs",
-      "require": "./dist/index.node.cjs"
+      "require": "./dist/index.node.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./browser": {
       "import": "./dist/index.browser.mjs",
-      "require": "./dist/index.browser.cjs"
+      "require": "./dist/index.browser.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./node": {
       "import": "./dist/node/index.node.mjs",
@@ -33,7 +37,7 @@
       "types": "./dist/node/index.d.ts"
     },
     "./react-native": "./dist/index.native.mjs",
-    "./types": "./dist/types/index.d.ts"
+    "./types": "./dist/index.d.ts"
   },
   "browser": {
     "./dist/index.node.cjs": "./dist/index.browser.cjs",
@@ -42,7 +46,7 @@
   "main": "./dist/index.node.cjs",
   "module": "./dist/index.node.mjs",
   "react-native": "./dist/index.native.mjs",
-  "types": "./dist/types/index.d.ts",
+  "types": "./dist/index.d.ts",
   "type": "commonjs",
   "files": [
     "./dist/"

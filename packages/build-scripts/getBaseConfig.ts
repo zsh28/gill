@@ -30,6 +30,7 @@ export function getBaseConfig(
                 __REACTNATIVE__: `${platform === "native"}`,
                 __VERSION__: `"${env.npm_package_version}"`,
               },
+              dts: true, // This enables .d.ts file generation
               entry: optionsInput.entry
                 ? optionsInput.entry
                 : [`./src/index.ts`],

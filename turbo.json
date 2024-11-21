@@ -1,0 +1,41 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "remoteCache": {
+    "signature": true
+  },
+  "tasks": {
+    "build": {
+      "dependsOn": ["compile:js", "compile:typedefs"],
+      "outputs": ["dist/**"]
+    },
+    "compile:js": {
+      "dependsOn": ["^compile:js"],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        "tsconfig.*",
+        "src/**",
+        "../build-scripts/*.ts"
+      ],
+      "outputs": ["dist/**"]
+    },
+    "compile:typedefs": {
+      "dependsOn": ["^compile:typedefs"],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig.*", "src/**"],
+      "outputs": ["dist/**/*.d.ts"]
+    },
+    "style:fix": {
+      "inputs": ["$TURBO_DEFAULT$", "*"],
+      "outputs": ["*"]
+    },
+    "test:treeshakability:browser": {
+      "dependsOn": ["compile:js"]
+    },
+    "test:treeshakability:native": {
+      "dependsOn": ["compile:js"]
+    },
+    "test:treeshakability:node": {
+      "dependsOn": ["compile:js"]
+    }
+  },
+  "ui": "stream"
+}

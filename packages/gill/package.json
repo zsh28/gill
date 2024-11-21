@@ -1,0 +1,76 @@
+{
+  "name": "gill",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "compile:js": "tsup --config ./tsup.config.package.ts",
+    "compile:typedefs": "tsc -p ./tsconfig.declarations.json",
+    "test:typecheck": "tsc --noEmit",
+    "test:treeshakability:browser": "agadoo dist/index.browser.mjs",
+    "test:treeshakability:native": "agadoo dist/index.native.mjs",
+    "test:treeshakability:node": "agadoo dist/index.node.mjs"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.node.mjs",
+      "require": "./dist/index.node.cjs"
+    },
+    "./edge-light": {
+      "import": "./dist/index.node.mjs",
+      "require": "./dist/index.node.cjs"
+    },
+    "./workerd": {
+      "import": "./dist/index.node.mjs",
+      "require": "./dist/index.node.cjs"
+    },
+    "./browser": {
+      "import": "./dist/index.browser.mjs",
+      "require": "./dist/index.browser.cjs"
+    },
+    "./node": {
+      "import": "./dist/node/index.node.mjs",
+      "require": "./dist/node/index.node.cjs",
+      "types": "./dist/node/index.d.ts"
+    },
+    "./react-native": "./dist/index.native.mjs",
+    "./types": "./dist/types/index.d.ts"
+  },
+  "browser": {
+    "./dist/index.node.cjs": "./dist/index.browser.cjs",
+    "./dist/index.node.mjs": "./dist/index.browser.mjs"
+  },
+  "main": "./dist/index.node.cjs",
+  "module": "./dist/index.node.mjs",
+  "react-native": "./dist/index.native.mjs",
+  "types": "./dist/types/index.d.ts",
+  "type": "commonjs",
+  "files": [
+    "./dist/"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "blockchain",
+    "solana",
+    "web3"
+  ],
+  "homepage": "https://github.com/nickfrosty/gill#readme",
+  "bugs": {
+    "url": "https://github.com/nickfrosty/gill/issues"
+  },
+  "browserslist": [
+    "supports bigint and not dead",
+    "maintained node versions"
+  ],
+  "dependencies": {
+    "@solana/web3.js": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@types/jscodeshift": "^0.12.0",
+    "browserslist-to-esbuild": "^2.1.1",
+    "jscodeshift": "^17.1.1",
+    "typescript": ">=5"
+  },
+  "engines": {
+    "node": ">=20.18.0"
+  }
+}

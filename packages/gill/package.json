@@ -8,7 +8,7 @@
     "test:typecheck": "tsc --noEmit",
     "test:treeshakability:browser": "agadoo dist/index.browser.mjs",
     "test:treeshakability:native": "agadoo dist/index.native.mjs",
-    "test:treeshakability:node": "agadoo dist/index.node.mjs"
+    "test:treeshakability:node": "agadoo dist/index.node.mjs && agadoo dist/node/index.node.mjs"
   },
   "exports": {
     ".": {

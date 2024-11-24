@@ -1,6 +1,9 @@
 import type {
   createSolanaRpc,
   createSolanaRpcSubscriptions,
+  DevnetUrl,
+  MainnetUrl,
+  TestnetUrl,
 } from "@solana/web3.js";
 
 /** Solana cluster moniker */
@@ -10,9 +13,17 @@ export type SolanaClusterMoniker =
   | "testnet"
   | "localnet";
 
+type GenericUrl = string & {};
+
+export type ModifiedClusterUrl =
+  | DevnetUrl
+  | MainnetUrl
+  | TestnetUrl
+  | GenericUrl;
+
 export type CreateSolanaClientArgs = {
   /** Full RPC URL (for a private RPC endpoint) or the Solana moniker (for a public RPC endpoint) */
-  urlOrMoniker: URL | SolanaClusterMoniker | (string & {});
+  urlOrMoniker: URL | SolanaClusterMoniker | ModifiedClusterUrl;
   /** Configuration used to create the `rpc` client */
   rpcConfig?: Parameters<typeof createSolanaRpc>[1];
   /** Configuration used to create the `rpcSubscriptions` client */

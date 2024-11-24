@@ -1,5 +1,9 @@
 import { createSolanaRpc, createSolanaRpcSubscriptions } from "@solana/web3.js";
-import { SolanaClusterMoniker } from "../types/rpc";
+import {
+  CreateSolanaClientArgs,
+  CreateSolanaClientResult,
+  SolanaClusterMoniker,
+} from "../types/rpc";
 
 /**
  * Get a public Solana RPC endpoint for a cluster based on its moniker
@@ -22,14 +26,13 @@ export function getPublicSolanaRpcUrl(cluster: SolanaClusterMoniker): string {
 }
 
 /**
- * Create a Solana `rpc` and `rpcSubscriptions`
+ * Create a Solana `rpc` and `rpcSubscriptions` client
  */
-export function createSolanaRpcAndSubscriptions(
-  urlOrMoniker: string | URL | SolanaClusterMoniker,
-): {
-  rpc: ReturnType<typeof createSolanaRpc>;
-  rpcSubscriptions: ReturnType<typeof createSolanaRpcSubscriptions>;
-} {
+export function createSolanaClient({
+  urlOrMoniker,
+  rpcConfig,
+  rpcSubscriptionsConfig,
+}: CreateSolanaClientArgs): CreateSolanaClientResult {
   if (typeof urlOrMoniker == "string") {
     try {
       urlOrMoniker = new URL(urlOrMoniker);
@@ -43,12 +46,13 @@ export function createSolanaRpcAndSubscriptions(
     }
   }
 
-  const rpc = createSolanaRpc(urlOrMoniker.toString());
+  const rpc = createSolanaRpc(urlOrMoniker.toString(), rpcConfig);
   if (urlOrMoniker.protocol.endsWith("s")) urlOrMoniker.protocol = "wss";
   else urlOrMoniker.protocol = "ws";
 
   const rpcSubscriptions = createSolanaRpcSubscriptions(
     urlOrMoniker.toString(),
+    rpcSubscriptionsConfig,
   );
 
   return {

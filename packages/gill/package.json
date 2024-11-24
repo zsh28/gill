@@ -11,33 +11,33 @@
     "test:treeshakability:node": "agadoo dist/index.node.mjs && agadoo dist/node/index.node.mjs"
   },
   "exports": {
+    "./types": "./dist/index.d.ts",
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.node.mjs",
-      "require": "./dist/index.node.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.node.cjs"
     },
     "./edge-light": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.node.mjs",
-      "require": "./dist/index.node.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.node.cjs"
     },
     "./workerd": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.node.mjs",
-      "require": "./dist/index.node.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.node.cjs"
     },
     "./browser": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.browser.mjs",
-      "require": "./dist/index.browser.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.browser.cjs"
     },
     "./node": {
+      "types": "./dist/node/index.d.ts",
       "import": "./dist/node/index.node.mjs",
-      "require": "./dist/node/index.node.cjs",
-      "types": "./dist/node/index.d.ts"
+      "require": "./dist/node/index.node.cjs"
     },
-    "./react-native": "./dist/index.native.mjs",
-    "./types": "./dist/index.d.ts"
+    "./react-native": "./dist/index.native.mjs"
   },
   "browser": {
     "./dist/index.node.cjs": "./dist/index.browser.cjs",

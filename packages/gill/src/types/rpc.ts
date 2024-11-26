@@ -21,9 +21,11 @@ export type ModifiedClusterUrl =
   | TestnetUrl
   | GenericUrl;
 
+export type SolanaUrlOrMoniker = SolanaClusterMoniker | ModifiedClusterUrl;
+
 export type CreateSolanaClientArgs = {
   /** Full RPC URL (for a private RPC endpoint) or the Solana moniker (for a public RPC endpoint) */
-  urlOrMoniker: URL | SolanaClusterMoniker | ModifiedClusterUrl;
+  urlOrMoniker: URL | SolanaUrlOrMoniker;
   /** Configuration used to create the `rpc` client */
   rpcConfig?: Parameters<typeof createSolanaRpc>[1];
   /** Configuration used to create the `rpcSubscriptions` client */

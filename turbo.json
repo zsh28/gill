@@ -27,6 +27,16 @@
       "inputs": ["$TURBO_DEFAULT$", "*"],
       "outputs": ["*"]
     },
+    "test:unit:browser": {
+      "dependsOn": ["^compile:js"],
+      "inputs": ["$TURBO_DEFAULT$", "src/**"],
+      "outputs": []
+    },
+    "test:unit:node": {
+      "dependsOn": ["^compile:js"],
+      "inputs": ["$TURBO_DEFAULT$", "src/**"],
+      "outputs": []
+    },
     "test:treeshakability:browser": {
       "dependsOn": ["compile:js"]
     },

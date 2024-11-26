@@ -1,6 +1,6 @@
 import assert from "node:assert";
-import { describe, test } from "node:test";
-import { getExplorerLink } from "../src/index";
+
+import { getExplorerLink } from "../../src/index";
 
 describe("getExplorerLink", () => {
   test("getExplorerLink works for a block on mainnet when no network is supplied", () => {

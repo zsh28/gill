@@ -154,6 +154,18 @@ importers:
         specifier: ^18
         version: 18.3.1
 
+  packages/svelte:
+    dependencies:
+      '@solana/web3.js':
+        specifier: ^2.0.0
+        version: 2.0.0(fastestsmallesttextencoderdecoder@1.0.22)(typescript@5.6.3)(ws@8.18.0(bufferutil@4.0.8)(utf-8-validate@5.0.10))
+      gill:
+        specifier: workspace:*
+        version: link:../gill
+      typescript:
+        specifier: '>=5'
+        version: 5.6.3
+
   packages/test-config:
     dependencies:
       jest-dev-server:

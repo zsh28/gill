@@ -1,0 +1,71 @@
+{
+  "name": "gill-vue",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "compile:js": "tsup --config ./tsup.config.package.ts",
+    "compile:typedefs": "tsc -p ./tsconfig.declarations.json",
+    "test:typecheck": "tsc --noEmit",
+    "test:unit:node": "TERM_OVERRIDE=\"${TURBO_HASH:+dumb}\" TERM=${TERM_OVERRIDE:-$TERM} jest -c ../../packages/test-config/jest-unit.config.node.ts --rootDir . --silent",
+    "test:unit:browser": "TERM_OVERRIDE=\"${TURBO_HASH:+dumb}\" TERM=${TERM_OVERRIDE:-$TERM} jest -c ../../packages/test-config/jest-unit.config.browser.ts --rootDir . --silent",
+    "test:treeshakability:browser": "agadoo dist/index.browser.mjs",
+    "test:treeshakability:node": "agadoo dist/index.node.mjs"
+  },
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "edge-light": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.node.mjs",
+      "require": "./dist/index.node.cjs"
+    },
+    "workerd": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.node.mjs",
+      "require": "./dist/index.node.cjs"
+    },
+    "browser": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.browser.mjs",
+      "require": "./dist/index.browser.cjs"
+    },
+    "node": {
+      "types": "./dist/node/index.d.ts",
+      "import": "./dist/node/index.node.mjs",
+      "require": "./dist/node/index.node.cjs"
+    }
+  },
+  "browser": {
+    "./dist/index.node.cjs": "./dist/index.browser.cjs",
+    "./dist/index.node.mjs": "./dist/index.browser.mjs"
+  },
+  "main": "./dist/index.node.cjs",
+  "module": "./dist/index.node.mjs",
+  "types": "./dist/index.d.ts",
+  "type": "commonjs",
+  "files": [
+    "./dist/"
+  ],
+  "sideEffects": false,
+  "keywords": [
+    "blockchain",
+    "solana",
+    "web3"
+  ],
+  "homepage": "https://github.com/nickfrosty/gill#readme",
+  "bugs": {
+    "url": "https://github.com/nickfrosty/gill/issues"
+  },
+  "browserslist": [
+    "supports bigint and not dead",
+    "maintained node versions"
+  ],
+  "devDependencies": {},
+  "peerDependencies": {
+    "gill": "workspace:*",
+    "@solana/web3.js": "^2.0.0",
+    "typescript": ">=5"
+  },
+  "engines": {
+    "node": ">=20.18.0"
+  }
+}

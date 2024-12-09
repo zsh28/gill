@@ -61,6 +61,7 @@
     "turbo": "^2.3.1"
   },
   "packageManager": "pnpm@9.1.0",
+  "author": "Solana Foundation DevRel <devrel@solana.org>",
   "homepage": "https://github.com/nickfrosty/gill#readme",
   "bugs": {
     "url": "https://github.com/nickfrosty/gill/issues"

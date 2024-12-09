@@ -54,6 +54,7 @@
     "solana",
     "web3"
   ],
+  "author": "Solana Foundation DevRel <devrel@solana.org>",
   "homepage": "https://github.com/nickfrosty/gill#readme",
   "bugs": {
     "url": "https://github.com/nickfrosty/gill/issues"

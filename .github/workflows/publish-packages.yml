@@ -41,6 +41,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Run Pre-Build Step
+        run: pnpm prebuild --force=true
+
       - name: Choose Build Step
         id: build-step-decider
         run:

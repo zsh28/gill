@@ -12,7 +12,7 @@
   "scripts": {
     "prebuild": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} build --filter=gill",
     "build": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} build",
-    "test": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test:unit:node test:unit:browser",
+    "test": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test",
     "test:treeshakability:native": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test:treeshakability:native",
     "test:treeshakability:browser": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test:treeshakability:browser",
     "test:treeshakability:node": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} test:treeshakability:node",

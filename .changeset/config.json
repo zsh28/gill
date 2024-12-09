@@ -5,9 +5,10 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "solana-labs/solana-web3.js"
+      "repo": "nickfrosty/gill"
     }
-  ],  "commit": false,
+  ],
+  "commit": false,
   "ignore": ["gill-vue", "gill-svelte"],
   "fixed": [["gill-!({build-scripts,test-*,tsconfig})"]],
   "linked": [],

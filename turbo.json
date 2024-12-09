@@ -8,14 +8,22 @@
       "dependsOn": ["compile:js", "compile:typedefs"],
       "outputs": ["dist/**"]
     },
+    "publish-packages": {
+      "cache": false,
+      "dependsOn": [
+        "build",
+        "test:typecheck",
+        "test:unit:browser",
+        "test:unit:node",
+        "test:treeshakability:browser",
+        "test:treeshakability:native",
+        "test:treeshakability:node"
+      ],
+      "passThroughEnv": ["GH_TOKEN", "NPM_TOKEN", "PUBLISH_TAG"]
+    },
     "compile:js": {
       "dependsOn": ["^compile:js"],
-      "inputs": [
-        "$TURBO_DEFAULT$",
-        "tsconfig.*",
-        "src/**",
-        "../build-scripts/*.ts"
-      ],
+      "inputs": ["$TURBO_DEFAULT$", "tsconfig.*", "src/**", "../build-scripts/*.ts"],
       "outputs": ["dist/**"]
     },
     "compile:typedefs": {

@@ -29,11 +29,11 @@ jobs:
       - name: Install Dependencies
         uses: ./.github/workflows/actions/install-dependencies
 
-      # - name: Configure NPM token
-      #   run: |
-      #     pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
-      #   env:
-      #     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Configure NPM token
+        run: |
+          pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Create Changesets Pull Request or Trigger an NPM Publish
         id: changesets

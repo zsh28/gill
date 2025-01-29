@@ -1,12 +1,11 @@
+import { pipe } from "@solana/functional";
 import {
-  pipe,
-  isTransactionSigner,
+  appendTransactionMessageInstructions,
   createTransactionMessage,
   setTransactionMessageFeePayer,
-  setTransactionMessageFeePayerSigner,
-  appendTransactionMessageInstructions,
   setTransactionMessageLifetimeUsingBlockhash,
-} from "@solana/web3.js";
+} from "@solana/transaction-messages";
+import { isTransactionSigner, setTransactionMessageFeePayerSigner } from "@solana/signers";
 import type { CreateTransactionInput } from "../types/transactions";
 
 /**

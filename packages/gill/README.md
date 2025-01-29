@@ -8,15 +8,15 @@ helper library for building Solana apps in Node, web, and React Native.
 Install `gill` with your package manager of choice:
 
 ```shell
-npm install gill @solana/web3.js@2
+npm install gill
 ```
 
 ```shell
-pnpm add gill @solana/web3.js@2
+pnpm add gill
 ```
 
 ```shell
-yarn add gill @solana/web3.js@2
+yarn add gill
 ```
 
 ## Quick start

@@ -2,13 +2,9 @@ import { resolve } from "node:path";
 import { readFileSync } from "node:fs";
 import { homedir } from "node:os";
 
-import {
-  createKeyPairFromBytes,
-  createSignerFromKeyPair,
-  KeyPairSigner,
-} from "@solana/web3.js";
-
 import { DEFAULT_CLI_KEYPAIR_PATH } from "./const";
+import { createSignerFromKeyPair, KeyPairSigner } from "@solana/signers";
+import { createKeyPairFromBytes } from "@solana/keys";
 
 /**
  * Load a `KeyPairSigner` from a filesystem wallet json file
@@ -32,7 +28,5 @@ export async function loadKeypairFromFile(
   const resolvedPath = resolve(
     filePath.startsWith("~") ? filePath.replace("~", homedir()) : filePath,
   );
-  return createKeyPairFromBytes(
-    Uint8Array.from(JSON.parse(readFileSync(resolvedPath, "utf8"))),
-  );
+  return createKeyPairFromBytes(Uint8Array.from(JSON.parse(readFileSync(resolvedPath, "utf8"))));
 }

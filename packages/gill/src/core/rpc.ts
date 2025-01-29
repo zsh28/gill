@@ -1,4 +1,5 @@
-import { createSolanaRpc, createSolanaRpcSubscriptions } from "@solana/web3.js";
+import { createSolanaRpc } from "@solana/rpc";
+import { createSolanaRpcSubscriptions } from "@solana/rpc-subscriptions";
 import {
   CreateSolanaClientArgs,
   CreateSolanaClientResult,
@@ -38,9 +39,7 @@ export function createSolanaClient({
       urlOrMoniker = new URL(urlOrMoniker);
     } catch (err) {
       try {
-        urlOrMoniker = new URL(
-          getPublicSolanaRpcUrl(urlOrMoniker as SolanaClusterMoniker),
-        );
+        urlOrMoniker = new URL(getPublicSolanaRpcUrl(urlOrMoniker as SolanaClusterMoniker));
       } catch (err) {
         throw new Error("Invalid URL or cluster moniker");
       }

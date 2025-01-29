@@ -32,7 +32,6 @@
     "@eslint/js": "^9.15.0",
     "@eslint/json": "^0.7.0",
     "@solana/eslint-config-solana": "^4.0.0",
-    "@solana/web3.js": "^2.0.0",
     "@swc/jest": "^0.2.37",
     "@types/jest": "^29.5.14",
     "@types/jscodeshift": "^0.12.0",

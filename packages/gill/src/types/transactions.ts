@@ -1,10 +1,8 @@
-import type {
-  Address,
-  Blockhash,
-  IInstruction,
-  TransactionSigner,
-  TransactionVersion,
-} from "@solana/web3.js";
+import { Address } from "@solana/addresses";
+import { IInstruction } from "@solana/instructions";
+import { Blockhash } from "@solana/rpc-types";
+import { TransactionSigner } from "@solana/signers";
+import { TransactionVersion } from "@solana/transaction-messages";
 
 export type CreateTransactionInput = {
   /**

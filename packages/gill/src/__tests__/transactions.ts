@@ -1,7 +1,9 @@
 import assert from "node:assert";
 
+import { generateKeyPairSigner, isKeyPairSigner, KeyPairSigner } from "@solana/signers";
+import { blockhash } from "@solana/rpc-types";
+
 import { createTransaction } from "../core/transactions";
-import { blockhash, generateKeyPairSigner, isKeyPairSigner, KeyPairSigner } from "@solana/web3.js";
 
 describe("createTransaction", () => {
   let signer: KeyPairSigner;

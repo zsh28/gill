@@ -72,10 +72,27 @@
     "maintained node versions"
   ],
   "peerDependencies": {
-    "@solana/web3.js": "^2.0.0",
     "typescript": ">=5"
   },
   "engines": {
     "node": ">=20.18.0"
+  },
+  "dependencies": {
+    "@solana/accounts": "^2.0.0",
+    "@solana/addresses": "^2.0.0",
+    "@solana/codecs": "^2.0.0",
+    "@solana/errors": "^2.0.0",
+    "@solana/functional": "^2.0.0",
+    "@solana/instructions": "^2.0.0",
+    "@solana/keys": "^2.0.0",
+    "@solana/programs": "^2.0.0",
+    "@solana/rpc": "^2.0.0",
+    "@solana/rpc-parsed-types": "^2.0.0",
+    "@solana/rpc-spec-types": "^2.0.0",
+    "@solana/rpc-subscriptions": "^2.0.0",
+    "@solana/rpc-types": "^2.0.0",
+    "@solana/signers": "^2.0.0",
+    "@solana/transaction-messages": "^2.0.0",
+    "@solana/transactions": "^2.0.0"
   }
 }

@@ -1,25 +1,13 @@
-import type {
-  createSolanaRpc,
-  createSolanaRpcSubscriptions,
-  DevnetUrl,
-  MainnetUrl,
-  TestnetUrl,
-} from "@solana/web3.js";
+import type { createSolanaRpc } from "@solana/rpc";
+import type { createSolanaRpcSubscriptions } from "@solana/rpc-subscriptions";
+import type { DevnetUrl, MainnetUrl, TestnetUrl } from "@solana/rpc-types";
 
 /** Solana cluster moniker */
-export type SolanaClusterMoniker =
-  | "mainnet-beta"
-  | "devnet"
-  | "testnet"
-  | "localnet";
+export type SolanaClusterMoniker = "mainnet-beta" | "devnet" | "testnet" | "localnet";
 
 type GenericUrl = string & {};
 
-export type ModifiedClusterUrl =
-  | DevnetUrl
-  | MainnetUrl
-  | TestnetUrl
-  | GenericUrl;
+export type ModifiedClusterUrl = DevnetUrl | MainnetUrl | TestnetUrl | GenericUrl;
 
 export type SolanaUrlOrMoniker = SolanaClusterMoniker | ModifiedClusterUrl;
 

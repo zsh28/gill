@@ -23,12 +23,9 @@ export type {
 } from "@solana/rpc-spec-types";
 export { createRpcMessage } from "@solana/rpc-spec-types";
 
-// export * from './airdrop';
-// export * from './compute-limit';
-// export * from './decompile-transaction-message-fetching-lookup-tables';
-// export * from './send-and-confirm-durable-nonce-transaction';
-// export * from './send-and-confirm-transaction';
-// export * from './send-transaction-without-confirming';
-
+export * from "./kit";
 export * from "./types";
 export * from "./core";
+
+// Node has a special export for the node JS specific
+// export * from "./node"; // DO NOT EXPORT HERE

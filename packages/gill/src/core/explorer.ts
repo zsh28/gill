@@ -6,7 +6,7 @@ import { GetExplorerLinkArgs } from "../types";
 export function getExplorerLink(props: GetExplorerLinkArgs): URL {
   let url: URL | null = null;
 
-  if (!props.cluster) props.cluster = "mainnet-beta";
+  if (!props.cluster || props.cluster == "mainnet") props.cluster = "mainnet-beta";
 
   if ("address" in props) {
     url = new URL(`https://explorer.solana.com/address/${props.address}`);

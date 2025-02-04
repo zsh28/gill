@@ -18,6 +18,14 @@ describe("getExplorerLink", () => {
     assert.equal(link, "https://explorer.solana.com/block/242233124");
   });
 
+  test("getExplorerLink works for a block on mainnet", () => {
+    const link = getExplorerLink({
+      cluster: "mainnet",
+      block: "242233124",
+    }).toString();
+    assert.equal(link, "https://explorer.solana.com/block/242233124");
+  });
+
   test("getExplorerLink works for an address on mainnet", () => {
     const link = getExplorerLink({
       cluster: "mainnet-beta",

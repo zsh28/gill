@@ -38,7 +38,7 @@ moniker (i.e. `devnet`, `localnet`, etc).
 import { createSolanaClient } from "gill";
 
 const { rpc, rpcSubscriptions } = createSolanaClient({
-  urlOrMoniker: "mainnet-beta",
+  urlOrMoniker: "mainnet",
 });
 ```
 
@@ -100,7 +100,7 @@ The `feePayer` can be either an `Address` or `TransactionSigner`.
 
 Craft a Solana Explorer link for transactions, accounts, or blocks on any cluster.
 
-> When no `cluster` is provided, defaults to `mainnet-beta`.
+> When no `cluster` is provided, defaults to `mainnet`.
 
 ```typescript
 import { getExplorerLink } from "gill";
@@ -139,7 +139,7 @@ To get an explorer link for a block:
 import { getExplorerLink } from "gill";
 
 const link: URL = getExplorerLink({
-  cluster: "mainnet-beta",
+  cluster: "mainnet",
   block: "242233124",
 });
 ```

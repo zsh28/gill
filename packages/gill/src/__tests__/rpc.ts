@@ -1,10 +1,14 @@
 import assert from "node:assert";
 
-import { getPublicSolanaRpcUrl } from "../index";
+import { getPublicSolanaRpcUrl } from "../core/rpc";
 
 describe("getPublicSolanaRpcUrl", () => {
   test("getPublicSolanaRpcUrl returns mainnet-beta url", () => {
     const rpcUrl = getPublicSolanaRpcUrl("mainnet-beta");
+    assert.equal(rpcUrl, "https://api.mainnet-beta.solana.com");
+  });
+  test("getPublicSolanaRpcUrl returns mainnet url", () => {
+    const rpcUrl = getPublicSolanaRpcUrl("mainnet");
     assert.equal(rpcUrl, "https://api.mainnet-beta.solana.com");
   });
   test("getPublicSolanaRpcUrl returns devnet url", () => {

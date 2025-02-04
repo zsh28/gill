@@ -11,13 +11,14 @@ import {
  *
  * Note: These RPC URLs are rate limited and not suitable for production applications.
  */
-export function getPublicSolanaRpcUrl(cluster: SolanaClusterMoniker): string {
+export function getPublicSolanaRpcUrl(cluster: SolanaClusterMoniker | "mainnet-beta"): string {
   switch (cluster) {
     case "devnet":
       return "https://api.devnet.solana.com";
     case "testnet":
       return "https://api.testnet.solana.com";
     case "mainnet-beta":
+    case "mainnet":
       return "https://api.mainnet-beta.solana.com";
     case "localnet":
       return "http://127.0.0.1:8899";

@@ -3,7 +3,7 @@ import assert from "node:assert";
 import { generateKeyPairSigner, isKeyPairSigner, KeyPairSigner } from "@solana/signers";
 import { blockhash } from "@solana/rpc-types";
 
-import { createTransaction } from "../core/transactions";
+import { createTransaction } from "../core";
 
 describe("createTransaction", () => {
   let signer: KeyPairSigner;

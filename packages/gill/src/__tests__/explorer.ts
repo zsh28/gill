@@ -1,7 +1,7 @@
 import assert from "node:assert";
 import { FullySignedTransaction, getSignatureFromTransaction } from "@solana/transactions";
 
-import { getExplorerLink } from "../../src/core/explorer";
+import { getExplorerLink } from "../core";
 
 describe("getExplorerLink", () => {
   test("getExplorerLink works for a block on mainnet when no network is supplied", () => {

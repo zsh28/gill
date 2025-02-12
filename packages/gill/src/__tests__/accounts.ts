@@ -1,6 +1,6 @@
 import assert from "node:assert";
 
-import { getMinimumBalanceForRentExemption } from "../core/accounts";
+import { getMinimumBalanceForRentExemption } from "../core";
 
 /**
  * Note: Each of the values checked against were obtained directly from the

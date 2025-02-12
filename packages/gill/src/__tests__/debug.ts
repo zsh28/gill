@@ -1,4 +1,4 @@
-import { debug, isDebugEnabled } from "../core/debug";
+import { debug, isDebugEnabled } from "../core";
 
 const DEFAULT_PREFIX = "[GILL]";
 

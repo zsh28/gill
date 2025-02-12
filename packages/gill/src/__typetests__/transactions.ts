@@ -10,7 +10,7 @@ import {
 } from "@solana/transaction-messages";
 import { IInstruction } from "@solana/instructions";
 
-import { createTransaction } from "../core/transactions";
+import { createTransaction } from "../core";
 
 // [DESCRIBE] createTransaction
 {

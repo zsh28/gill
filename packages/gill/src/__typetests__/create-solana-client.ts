@@ -9,7 +9,7 @@ import {
   RequestAirdropApi,
   SolanaRpcApiMainnet,
 } from "@solana/rpc";
-import { createSolanaClient } from "../core/rpc";
+import { createSolanaClient } from "../core";
 import {
   sendAndConfirmDurableNonceTransactionFactory,
   sendAndConfirmTransactionFactory,

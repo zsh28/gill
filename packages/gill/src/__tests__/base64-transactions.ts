@@ -3,8 +3,7 @@ import assert from "node:assert";
 import { blockhash } from "@solana/rpc-types";
 
 import { address } from "@solana/addresses";
-import { createTransaction } from "../core/transactions";
-import { transactionToBase64 } from "../core/base64-transactions";
+import { createTransaction, transactionToBase64 } from "../core";
 
 // initialize a sample transaction
 const tx = createTransaction({

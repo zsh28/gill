@@ -5,7 +5,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "nickfrosty/gill"
+      "repo": "solana-foundation/gill"
     }
   ],
   "commit": false,

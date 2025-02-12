@@ -5,9 +5,9 @@
     "packages/*"
   ],
   "repository": {
-    "name": "nickfrosty/gill",
+    "name": "solana-foundation/gill",
     "type": "git",
-    "url": "https://github.com/nickfrosty/gill"
+    "url": "https://github.com/solana-foundation/gill"
   },
   "scripts": {
     "clean": "turbo run --concurrency=${TURBO_CONCURRENCY:-95.84%} clean && pnpm clean:root",
@@ -64,9 +64,9 @@
   },
   "packageManager": "pnpm@9.1.0",
   "author": "Solana Foundation DevRel <devrel@solana.org>",
-  "homepage": "https://github.com/nickfrosty/gill#readme",
+  "homepage": "https://github.com/solana-foundation/gill#readme",
   "bugs": {
-    "url": "https://github.com/nickfrosty/gill/issues"
+    "url": "https://github.com/solana-foundation/gill/issues"
   },
   "contributors": [
     {

@@ -1,6 +1,7 @@
 import type { Address } from "@solana/addresses";
 import type { KeyPairSigner } from "@solana/signers";
-import { findAssociatedTokenPda } from "@solana-program/token";
+import { findAssociatedTokenPda, TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
+import { TOKEN_2022_PROGRAM_ADDRESS } from "@solana-program/token-2022";
 
 /**
  * Derive the Token Metadata address from a token's Mint address
@@ -17,13 +18,38 @@ import { findAssociatedTokenPda } from "@solana-program/token";
 export async function getTokenAccountAddress(
   mint: Address | KeyPairSigner,
   owner: Address | KeyPairSigner,
-  tokenProgram: Address,
+  tokenProgram?: Address,
 ): Promise<Address> {
   return (
     await findAssociatedTokenPda({
-      owner: "address" in owner ? owner.address : owner,
       mint: "address" in mint ? mint.address : mint,
-      tokenProgram,
+      owner: "address" in owner ? owner.address : owner,
+      tokenProgram: checkedTokenProgramAddress(tokenProgram),
     })
   )[0];
+}
+
+export function assertIsSupportedTokenProgram(
+  tokenProgram: Address,
+): asserts tokenProgram is Address<typeof tokenProgram> {
+  if (tokenProgram !== TOKEN_PROGRAM_ADDRESS && tokenProgram !== TOKEN_2022_PROGRAM_ADDRESS) {
+    throw Error(
+      "Unsupported token program. Try 'TOKEN_PROGRAM_ADDRESS' or 'TOKEN_2022_PROGRAM_ADDRESS'",
+    );
+  }
+}
+
+/**
+ * Check the provided program is one of the supported token programs.
+ * Including setting the default to {@link TOKEN_PROGRAM_ADDRESS} (the original SPL token program)
+ *
+ * @example
+ * ```
+ * args.tokenProgram = checkedTokenProgramAddress(args.tokenProgram);
+ * ```
+ */
+export function checkedTokenProgramAddress(tokenProgram?: Address): Address {
+  if (!tokenProgram) return TOKEN_PROGRAM_ADDRESS;
+  assertIsSupportedTokenProgram(tokenProgram);
+  return tokenProgram;
 }

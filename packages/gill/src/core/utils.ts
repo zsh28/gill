@@ -1,5 +1,7 @@
 import type { SolanaClusterMoniker } from "../types";
 import { GENESIS_HASH } from "./const";
+import type { KeyPairSigner } from "@solana/signers";
+import type { Address } from "@solana/addresses";
 
 /**
  * Determine the Solana moniker from its genesis hash
@@ -17,4 +19,8 @@ export function getMonikerFromGenesisHash(hash: string): SolanaClusterMoniker | 
     default:
       return "unknown";
   }
+}
+
+export function checkedAddress(input: KeyPairSigner | Address): Address {
+  return typeof input == "string" ? input : input.address;
 }

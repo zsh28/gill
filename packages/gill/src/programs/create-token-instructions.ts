@@ -14,6 +14,7 @@ import {
   getInitializeMetadataPointerInstruction,
   getInitializeTokenMetadataInstruction,
 } from "@solana-program/token-2022";
+import { checkedTokenProgramAddress } from "./token-shared";
 
 export type GetCreateTokenInstructionsArgs = {
   /** Signer that will pay for the rent storage deposit fee */
@@ -75,13 +76,10 @@ export type GetCreateTokenInstructionsArgs = {
    * */
   metadataAddress: Address;
   /**
-   * Token program used to create the token
+   * Token program used to create the token's `mint`
    *
-   * @default `TOKEN_PROGRAM_ADDRESS` - the original SPL Token Program
-   *
-   * Supported token programs:
-   * - `TOKEN_PROGRAM_ADDRESS` for the original SPL Token Program
-   * - `TOKEN_2022_PROGRAM_ADDRESS` for the SPL Token Extension Program (aka Token22)
+   * - (default) {@link TOKEN_PROGRAM_ADDRESS} - the original SPL Token Program
+   * - {@link TOKEN_2022_PROGRAM_ADDRESS} - the SPL Token Extensions Program (aka Token22)
    **/
   tokenProgram?: Address;
   // extensions // todo
@@ -91,15 +89,7 @@ export type GetCreateTokenInstructionsArgs = {
  * Create the instructions required to initialize a new token's Mint
  */
 export function getCreateTokenInstructions(args: GetCreateTokenInstructionsArgs): IInstruction[] {
-  if (!args.tokenProgram) args.tokenProgram = TOKEN_PROGRAM_ADDRESS;
-  if (
-    args.tokenProgram !== TOKEN_PROGRAM_ADDRESS &&
-    args.tokenProgram !== TOKEN_2022_PROGRAM_ADDRESS
-  ) {
-    throw Error(
-      "Unsupported token program. Try 'TOKEN_PROGRAM_ADDRESS' or 'TOKEN_2022_PROGRAM_ADDRESS'",
-    );
-  }
+  args.tokenProgram = checkedTokenProgramAddress(args.tokenProgram);
 
   if (!args.decimals) args.decimals = 9;
   if (!args.mintAuthority) args.mintAuthority = args.payer;

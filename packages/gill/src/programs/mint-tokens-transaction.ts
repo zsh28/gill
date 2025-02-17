@@ -3,17 +3,15 @@ import type {
   TransactionMessageWithBlockhashLifetime,
   TransactionVersion,
 } from "@solana/transaction-messages";
-import { createTransaction } from "../core";
+import { checkedAddress, createTransaction } from "../core";
 import type { CreateTransactionInput, FullTransaction, Simplify } from "../types";
+import { type TransactionSigner } from "@solana/signers";
+import { checkedTokenProgramAddress, getAssociatedTokenAccountAddress } from "./token-shared";
 import {
-  getCreateTokenInstructions,
-  type GetCreateTokenInstructionsArgs,
-} from "./create-token-instructions";
-import { type KeyPairSigner, type TransactionSigner } from "@solana/signers";
-import { TOKEN_PROGRAM_ADDRESS } from "@solana-program/token";
-import { TOKEN_2022_PROGRAM_ADDRESS } from "@solana-program/token-2022";
-import { getTokenMetadataAddress } from "./token-metadata";
-import { checkedTokenProgramAddress } from "./token-shared";
+  getMintTokensInstructions,
+  type GetMintTokensInstructionsArgs,
+} from "./mint-tokens-instructions";
+import { Address } from "@solana/addresses";
 
 type TransactionInput<
   TVersion extends TransactionVersion = "legacy",
@@ -30,46 +28,50 @@ type TransactionInput<
 >;
 
 type GetCreateTokenTransactionInput = Simplify<
-  Omit<GetCreateTokenInstructionsArgs, "metadataAddress"> &
-    Partial<Pick<GetCreateTokenInstructionsArgs, "metadataAddress">>
+  Omit<GetMintTokensInstructionsArgs, "ata"> & Partial<Pick<GetMintTokensInstructionsArgs, "ata">>
 >;
 
 /**
- * Create a transaction that can create a token with metadata
+ * Create a transaction that can mint tokens to the desired wallet/owner,
+ * including creating their ATA if it does not exist
  *
  * The transaction will has the following defaults:
  * - Default `version` = `legacy`
- * - Default `computeUnitLimit`:
- *    - for TOKEN_PROGRAM_ADDRESS => `60_000`
- *    - for TOKEN_2022_PROGRAM_ADDRESS => `10_000`
+ * - Default `computeUnitLimit` = `31_000`
+ *
+ * @remarks
+ *
+ * - minting without creating the ata is generally < 10_000cu
+ * - validating the ata onchain during creation results in a ~5000cu fluctuation
  *
  * @example
- *
  * ```
- * const mint = await generateKeyPairSigner();
+ * const destination = address("nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c");
  *
- * const transaction = await buildCreateTokenTransaction({
+ * const mint = address(...);
+ * // or mint can be a keypair from a freshly created token
+ *
+ * const transaction = await buildMintTokensTransaction({
  *   payer: signer,
  *   latestBlockhash,
  *   mint,
- *   metadata: {
- *     name: "Test Token",
- *     symbol: "TEST",
- *     uri: "https://example.com/metadata.json",
- *     isMutable: true,
- *   },
+ *   mintAuthority: signer,
+ *   amount: 1000, // note: be sure to consider the mint's `decimals` value
+ *   // if decimals=2 => this will mint 10.00 tokens
+ *   // if decimals=4 => this will mint 0.100 tokens
+ *   destination,
  *   // tokenProgram: TOKEN_PROGRAM_ADDRESS, // default
  *   // tokenProgram: TOKEN_2022_PROGRAM_ADDRESS,
  * });
  * ```
  */
-export async function buildCreateTokenTransaction<
+export async function buildMintTokensTransaction<
   TVersion extends TransactionVersion = "legacy",
   TFeePayer extends TransactionSigner = TransactionSigner,
 >(
   input: TransactionInput<TVersion, TFeePayer> & GetCreateTokenTransactionInput,
 ): Promise<FullTransaction<TVersion, ITransactionMessageWithFeePayer>>;
-export async function buildCreateTokenTransaction<
+export async function buildMintTokensTransaction<
   TVersion extends TransactionVersion = "legacy",
   TFeePayer extends TransactionSigner = TransactionSigner,
   TLifetimeConstraint extends
@@ -84,7 +86,7 @@ export async function buildCreateTokenTransaction<
     TransactionMessageWithBlockhashLifetime
   >
 >;
-export async function buildCreateTokenTransaction<
+export async function buildMintTokensTransaction<
   TVersion extends TransactionVersion,
   TFeePayer extends TransactionSigner,
   TLifetimeConstraint extends TransactionMessageWithBlockhashLifetime["lifetimeConstraint"],
@@ -93,24 +95,30 @@ export async function buildCreateTokenTransaction<
     GetCreateTokenTransactionInput,
 ) {
   input.tokenProgram = checkedTokenProgramAddress(input.tokenProgram);
+  input.mint = checkedAddress(input.mint);
 
-  let metadataAddress = input.mint.address;
+  if (!input.ata) {
+    input.ata = await getAssociatedTokenAccountAddress(
+      input.mint,
+      input.destination,
+      input.tokenProgram,
+    );
+  }
 
-  if (input.tokenProgram === TOKEN_PROGRAM_ADDRESS) {
-    metadataAddress = await getTokenMetadataAddress(input.mint);
-
-    // default a reasonably low computeUnitLimit based on simulation data
-    if (!input.computeUnitLimit) {
-      // creating the token's mint is around 3219cu (and stable?)
-      // token metadata is the rest... and fluctuates a lot based on the pda and amount of metadata
-      input.computeUnitLimit = 60_000;
-    }
-  } else if (input.tokenProgram === TOKEN_2022_PROGRAM_ADDRESS) {
-    if (!input.computeUnitLimit) {
-      // token22 token creation, with metadata is (seemingly stable) around 7647cu,
-      // but consume more with more metadata provided
-      input.computeUnitLimit = 10_000;
-    }
+  // default a reasonably low computeUnitLimit based on simulation data
+  if (!input.computeUnitLimit) {
+    /**
+     * for TOKEN_PROGRAM_ADDRESS and multiple simulation attempts,
+     * minting tokens costs the following:
+     * - when not creating the ata: 9156cu
+     * - when creating the ata: 26535cu
+     *
+     * for TOKEN_2022_PROGRAM_ADDRESS and multiple simulation attempts,
+     * minting tokens costs the following:
+     * - when not creating the ata: 8978cu
+     * - when creating the ata: 22567cu
+     */
+    input.computeUnitLimit = 31_000;
   }
 
   return createTransaction(
@@ -120,26 +128,23 @@ export async function buildCreateTokenTransaction<
       computeUnitLimit,
       computeUnitPrice,
       latestBlockhash,
-      instructions: getCreateTokenInstructions(
+      instructions: getMintTokensInstructions(
         (({
-          decimals,
-          mintAuthority,
-          freezeAuthority,
-          updateAuthority,
-          metadata,
-          payer,
           tokenProgram,
+          payer,
           mint,
-        }: typeof input) => ({
-          mint: mint as KeyPairSigner,
-          payer,
-          metadataAddress,
-          metadata,
-          decimals,
+          ata,
           mintAuthority,
-          freezeAuthority,
-          updateAuthority,
+          amount,
+          destination,
+        }: typeof input) => ({
           tokenProgram,
+          payer,
+          mint,
+          mintAuthority,
+          ata: ata as Address,
+          amount,
+          destination,
         }))(input),
       ),
     }))(input),

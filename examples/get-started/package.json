@@ -1,5 +1,6 @@
 {
   "name": "gill-examples-basic",
+  "license": "MIT",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -8,7 +9,6 @@
   "scripts": {},
   "keywords": [],
   "author": "",
-  "license": "MIT",
   "dependencies": {
     "@solana-program/compute-budget": "^0.6.1",
     "@solana-program/memo": "^0.6.1",

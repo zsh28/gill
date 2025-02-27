@@ -90,7 +90,7 @@ const createTokenTx = await buildCreateTokenTransaction({
   // updateAuthority, // default=same as the `feePayer`
   decimals: 2, // default=9,
   tokenProgram, // default=TOKEN_PROGRAM_ADDRESS, token22 also supported
-  // default cu limit set to be optimized, but can be overriden here
+  // default cu limit set to be optimized, but can be overridden here
   // computeUnitLimit?: number,
   // obtain from your favorite priority fee api
   // computeUnitPrice?: number, // no default set
@@ -149,7 +149,7 @@ const mintTokensTx = await buildMintTokensTransaction({
   destination: mintToDestination,
   // use the correct token program for the `mint`
   tokenProgram, // default=TOKEN_PROGRAM_ADDRESS
-  // default cu limit set to be optimized, but can be overriden here
+  // default cu limit set to be optimized, but can be overridden here
   // computeUnitLimit?: number,
   // obtain from your favorite priority fee api
   // computeUnitPrice?: number, // no default set
@@ -227,7 +227,7 @@ const transferTokensTx = await buildTransferTokensTransaction({
   destination: transferToDestination,
   // use the correct token program for the `mint`
   tokenProgram, // default=TOKEN_PROGRAM_ADDRESS
-  // default cu limit set to be optimized, but can be overriden here
+  // default cu limit set to be optimized, but can be overridden here
   // computeUnitLimit?: number,
   // obtain from your favorite priority fee api
   // computeUnitPrice?: number, // no default set

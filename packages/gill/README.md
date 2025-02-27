@@ -46,6 +46,11 @@ yarn add gill
 
 ## Quick start
 
+> Find a collection of example code snippets using `gill` inside the
+> [`/examples` directory](https://github.com/solana-foundation/gill/tree/master/examples), including
+> [basic operations](https://github.com/solana-foundation/gill/tree/master/examples/get-started) and
+> common [token operations](https://github.com/solana-foundation/gill/tree/master/examples/tokens).
+
 - [Create a Solana RPC connection](#create-a-solana-rpc-connection)
 - [Making Solana RPC calls](#making-solana-rpc-calls)
 - [Create a transaction](#create-a-transaction)
@@ -589,7 +594,8 @@ const mintTokensTx = await buildMintTokensTransaction({
 
 ### Transfer tokens to a destination wallet
 
-Build a transaction that transfers tokens to the `destination` wallet address form the `source`
+Build a transaction that transfers tokens to the `destination` wallet address from the `source` (aka
+from `sourceAta` to `destinationAta`).
 
 - ensure you set the correct `tokenProgram` used by the `mint` itself
 - if the `destination` owner does not have an associated token account (ata) created for the `mint`,

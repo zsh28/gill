@@ -44,6 +44,7 @@ After getting setup locally, we recommend exploring the code of the following
 files (in order):
 
 - [`intro.ts`](./src/intro.ts)
+- [`airdrop.ts`](./src/airdrop.ts)
 - [`tokens.ts`](./src/tokens.ts)
 
 #### `intro.ts`
@@ -64,9 +65,15 @@ commonly used tasks involved to interact with the Solana blockchain, including:
 These are all the most basic tasks required for any application sending
 transaction to the Solana blockchain.
 
+#### `airdrop.ts`
+
+Demonstrates how to create a client connection to the Solana blockchain on a
+test cluster (e.g. `devnet`, `testnet`, or `localnet`) and request airdrops of
+testing SOL tokens to a wallet address.
+
 #### `tokens.ts`
 
-Demonstrating how to use gill's "transaction builders" to create a brand new
+Demonstrates how to use gill's "transaction builders" to create a brand new
 Solana token (with onchain metadata) and then mint tokens to another user's
 wallet:
 
@@ -78,10 +85,8 @@ wallet:
 - build an optimized transaction to mint
 - sign, send, and confirm that "mint tokens" transaction
 
-#### `2.complexTransaction.ts`
-
-An introduction to more complex transactions using Solana web3.js. Demonstrates
-how to build a more complex transaction, with multiple instructions.
+> For more examples interacting with Tokens on Solana, see the
+> [token examples examples here](../tokens/README.md)
 
 ## Comparison of gill vs web3js v2
 

@@ -7,8 +7,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/solana-foundation/gill/actions/workflows/publish-packages.yml"><img src="https://img.shields.io/github/actions/workflow/status/solana-foundation/gill/publish-packages.yml?logo=GitHub" /></a>
+  <a href="https://github.com/solana-foundation/gill/actions/workflows/publish-packages.yml"><img src="https://img.shields.io/github/actions/workflow/status/solana-foundation/gill/publish-packages.yml?logo=GitHub&label=tests" /></a>
   <a href="https://www.npmjs.com/package/gill"><img src="https://img.shields.io/npm/v/gill?logo=npm&color=377CC0" /></a>
+  <a href="https://www.npmjs.com/package/gill"><img src="https://img.shields.io/npm/dm/gill?color=377CC0" /></a>
 </p>
 
 <p align="center">

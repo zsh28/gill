@@ -1,13 +1,8 @@
-import type { IInstruction } from "@solana/instructions";
-import type { Address } from "@solana/addresses";
-import type { KeyPairSigner } from "@solana/signers";
+import type { Address, IInstruction, KeyPairSigner } from "@solana/kit";
 
-import { checkedTokenProgramAddress } from "../addresses";
-import {
-  getTransferInstruction,
-  getCreateAssociatedTokenIdempotentInstruction,
-} from "@solana-program/token-2022";
+import { getCreateAssociatedTokenIdempotentInstruction, getTransferInstruction } from "@solana-program/token-2022";
 import { checkedAddress } from "../../../core";
+import { checkedTokenProgramAddress } from "../addresses";
 import type { TokenInstructionBase } from "./types";
 
 export type GetTransferTokensInstructionsArgs = TokenInstructionBase<KeyPairSigner | Address> & {
@@ -69,9 +64,7 @@ export type GetTransferTokensInstructionsArgs = TokenInstructionBase<KeyPairSign
  * });
  * ```
  */
-export function getTransferTokensInstructions(
-  args: GetTransferTokensInstructionsArgs,
-): IInstruction[] {
+export function getTransferTokensInstructions(args: GetTransferTokensInstructionsArgs): IInstruction[] {
   args.tokenProgram = checkedTokenProgramAddress(args.tokenProgram);
   args.mint = checkedAddress(args.mint);
 

@@ -1,13 +1,8 @@
-import type { IInstruction } from "@solana/instructions";
-import type { Address } from "@solana/addresses";
-import type { KeyPairSigner } from "@solana/signers";
+import type { Address, IInstruction, KeyPairSigner } from "@solana/kit";
 
-import { checkedTokenProgramAddress } from "../addresses";
-import {
-  getMintToInstruction,
-  getCreateAssociatedTokenIdempotentInstruction,
-} from "@solana-program/token-2022";
+import { getCreateAssociatedTokenIdempotentInstruction, getMintToInstruction } from "@solana-program/token-2022";
 import { checkedAddress } from "../../../core";
+import { checkedTokenProgramAddress } from "../addresses";
 import type { TokenInstructionBase } from "./types";
 
 export type GetMintTokensInstructionsArgs = TokenInstructionBase<KeyPairSigner | Address> & {

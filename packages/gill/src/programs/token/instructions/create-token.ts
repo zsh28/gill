@@ -1,20 +1,15 @@
-import type { IInstruction } from "@solana/instructions";
-import type { Address } from "@solana/addresses";
-import type { KeyPairSigner } from "@solana/signers";
 import { getCreateAccountInstruction } from "@solana-program/system";
+import type { Address, IInstruction, KeyPairSigner } from "@solana/kit";
 import { checkedAddress, getMinimumBalanceForRentExemption } from "../../../core";
-import {
-  getTokenMetadataAddress,
-  getCreateMetadataAccountV3Instruction,
-} from "../../token-metadata";
+import { getCreateMetadataAccountV3Instruction, getTokenMetadataAddress } from "../../token-metadata";
 
 import {
   extension,
-  getMintSize,
-  TOKEN_2022_PROGRAM_ADDRESS,
+  getInitializeMetadataPointerInstruction,
   getInitializeMintInstruction,
   getInitializeTokenMetadataInstruction,
-  getInitializeMetadataPointerInstruction,
+  getMintSize,
+  TOKEN_2022_PROGRAM_ADDRESS,
 } from "@solana-program/token-2022";
 import { checkedTokenProgramAddress } from "../addresses";
 import type { TokenInstructionBase } from "./types";
@@ -119,9 +114,7 @@ export function getCreateTokenInstructions(args: GetCreateTokenInstructionsArgs)
          * token22 requires the total lamport balance for all extensions,
          * including pre-initialization and post-initialization
          */
-        lamports: getMinimumBalanceForRentExemption(
-          BigInt(getMintSize([metadataPointer, metadataExtensionData])),
-        ),
+        lamports: getMinimumBalanceForRentExemption(BigInt(getMintSize([metadataPointer, metadataExtensionData]))),
         programAddress: args.tokenProgram,
       }),
       getInitializeMetadataPointerInstruction({

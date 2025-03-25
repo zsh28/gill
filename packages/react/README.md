@@ -134,7 +134,9 @@ import { useBalance, ... } from "gill-react";
 // ... other imports
 
 export function PageClient() {
-  const { balance } = useBalance("nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c");
+  const { balance } = useBalance({
+    address: "nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c",
+  });
 
   return (
     {/* ... */}
@@ -174,7 +176,9 @@ import { lamportsToSol } from "gill";
 import { useBalance } from "gill-react";
 
 export function PageClient() {
-  const { balance, isLoading, isError, error } = useBalance("nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c");
+  const { balance, isLoading, isError, error } = useBalance({
+    address: "nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c",
+  });
 
   // if (isLoading) { return ... }
   // if (isError) { return ... }
@@ -222,7 +226,9 @@ Get the account info for an address using the Solana RPC method of
 import { useAccount } from "gill-react";
 
 export function PageClient() {
-  const { account, isLoading, isError, error } = useAccount("nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c");
+  const { account, isLoading, isError, error } = useAccount({
+    address: "nicktrLHhYzLmoVbuZQzHUTicd2sfP571orwo9jfc8c",
+  });
 
   // if (isLoading) { return ... }
   // if (isError) { return ... }

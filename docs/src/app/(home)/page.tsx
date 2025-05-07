@@ -21,13 +21,16 @@ export default function Page() {
         </p>
         <p className="text-center inline-flex items-center gap-2 mx-auto">
           <a href="https://github.com/solana-foundation/gill/actions/workflows/publish-packages.yml">
-            <img src="https://img.shields.io/github/actions/workflow/status/solana-foundation/gill/publish-packages.yml?logo=GitHub&label=tests" />
+            <img
+              alt=""
+              src="https://img.shields.io/github/actions/workflow/status/solana-foundation/gill/publish-packages.yml?logo=GitHub&label=tests"
+            />
           </a>
           <a href="https://www.npmjs.com/package/gill">
-            <img src="https://img.shields.io/npm/v/gill?logo=npm&color=377CC0" />
+            <img alt="" src="https://img.shields.io/npm/v/gill?logo=npm&color=377CC0" />
           </a>
           <a href="https://www.npmjs.com/package/gill">
-            <img src="https://img.shields.io/npm/dm/gill?color=377CC0" />
+            <img alt="" src="https://img.shields.io/npm/dm/gill?color=377CC0" />
           </a>
         </p>
       </section>

@@ -1,5 +1,5 @@
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
-import { BookTextIcon, ShapesIcon } from "lucide-react";
+import { BookTextIcon } from "lucide-react";
 import Image from "next/image";
 
 import icon from "@/public/icon-black.svg";

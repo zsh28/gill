@@ -21,6 +21,9 @@ export const metadata: Metadata = {
       url: "/og.png",
     },
   },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 
 export default function Layout({ children }: { children: ReactNode }) {

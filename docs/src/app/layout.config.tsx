@@ -30,7 +30,7 @@ export const baseOptions: BaseLayoutProps = {
     },
     {
       text: "Guides",
-      url: "/guides",
+      url: "/docs/guides",
       active: "nested-url",
       icon: <ShapesIcon />,
     },

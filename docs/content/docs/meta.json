@@ -3,11 +3,14 @@
   "defaultOpen": true,
   "root": true,
   "pages": [
+    "---Introduction---",
     "index",
+    "typescript",
     "---Getting Started---",
     "...getting-started",
     "---Guides---",
     "...guides",
+    "---Miscellaneous---",
     "..."
   ]
 }

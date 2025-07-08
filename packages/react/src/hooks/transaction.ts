@@ -21,27 +21,6 @@ type UseTransactionInput<TConfig extends RpcConfig = RpcConfig> = GillUseRpcHook
  * Get transaction details for a confirmed transaction using the Solana RPC method of
  * [`getTransaction`](https://solana.com/docs/rpc/http/gettransaction)
  * 
- * @example
- * ```tsx
- * const { transaction, isLoading, error } = useTransaction({
- *   signature: "5Pj5fCupXLUePYn18JkY8SrRaWFiUctuDTRwvUy2ML9yvkENLb1QMYbcBGcBXRrSVDjp7RjUwk9a3rLC6gpvtYpZ",
- *   config: {
- *     maxSupportedTransactionVersion: 0,
- *     encoding: "json"
- *   }
- * });
- * 
- * if (isLoading) return <div>Loading transaction...</div>;
- * if (error) return <div>Error: {error.message}</div>;
- * if (!transaction) return <div>Transaction not found</div>;
- * 
- * return (
- *   <div>
- *     <p>Slot: {transaction.slot}</p>
- *     <p>Block Time: {transaction.blockTime}</p>
- *   </div>
- * );
- * ```
  */
 export function useTransaction<TConfig extends RpcConfig = RpcConfig>({
   options,

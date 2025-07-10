@@ -1,5 +1,5 @@
 ---
-"gill-react": patch
+"gill-react": minor
 ---
 
 added `useSlot` hook

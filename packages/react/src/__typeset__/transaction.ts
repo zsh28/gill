@@ -17,18 +17,20 @@ import { useTransaction } from "../hooks";
   }
 
   {
+    // Should accept `config` input
     const { transaction } = useTransaction({
       signature,
-      config: { 
+      config: {
         commitment: "confirmed",
         maxSupportedTransactionVersion: 0,
-        encoding: "json"
+        encoding: "json",
       },
     });
     transaction satisfies ReturnType<GetTransactionApi["getTransaction"]>;
   }
 
   {
+    // Should accept a plain `string` as the `signature`
     const { transaction } = useTransaction({
       signature: "5Pj5fCupXLUePYn18JkY8SrRaWFiUctuDTRwvUy2ML9yvkENLb1QMYbcBGcBXRrSVDjp7RjUwk9a3rLC6gpvtYpZ",
     });

@@ -20,7 +20,10 @@ type UseTransactionInput<TConfig extends RpcConfig = RpcConfig> = GillUseRpcHook
 /**
  * Get transaction details for a confirmed transaction using the Solana RPC method of
  * [`getTransaction`](https://solana.com/docs/rpc/http/gettransaction)
- * 
+ *
+ * Default `config` includes:
+ * - `maxSupportedTransactionVersion` of `0`
+ * - `encoding` of `json`
  */
 export function useTransaction<TConfig extends RpcConfig = RpcConfig>({
   options,
@@ -35,7 +38,14 @@ export function useTransaction<TConfig extends RpcConfig = RpcConfig>({
     enabled: !!signature,
     queryKey: [GILL_HOOK_CLIENT_KEY, "getTransaction", signature],
     queryFn: async () => {
-      const response = await rpc.getTransaction(signature as Signature, config).send({ abortSignal });
+      const response = await rpc
+        .getTransaction(signature as Signature, {
+          // set default values for better DX
+          maxSupportedTransactionVersion: 0,
+          encoding: "json",
+          ...(config || {}),
+        })
+        .send({ abortSignal });
       return response;
     },
   });

@@ -31,6 +31,7 @@ Update the IDL at
 ```shell
 pnpm generate
 ```
+Generated code >>> src/generated
 
 #### Start the web app
 

@@ -1,24 +1,35 @@
-# escrow-gill-anchor-codama
+# Anchor Escrow Example (Codama + Gill + Next.js)
 
-This is a Next.js app containing:
+This project demonstrates how to build and interact with an **Anchor-based Escrow program** using:
 
-- Tailwind CSS setup for styling
-- Useful wallet UI elements setup using [Gill](https://gill.site/)
+- **Anchor** → Solana smart contract framework IDL  
+- **Codama** → IDL + client SDK code generation  
+- **Next.js** → Frontend dApp (bootstrapped with `create-solana-dapp`)  
+
+It serves as a **reference project** for developers who want to combine Anchor, Codama, and SPL tokens in a full-stack workflow.  
+
 
 ## Getting Started
 
 ### Installation
 
-#### Download the template
-
-```shell
-pnpm create solana-dapp@latest -t gh:solana-foundation/templates/gill/escrow-gill-anchor-codama
-```
-
 #### Install Dependencies
 
 ```shell
 pnpm install
+```
+#### IDL setup
+
+Update the IDL at
+```shell
+/scripts/idl/anchor_escrow_idl.json
+```
+
+
+#### Run the generation script:
+
+```shell
+pnpm generate
 ```
 
 #### Start the web app
@@ -26,3 +37,9 @@ pnpm install
 ```shell
 pnpm dev
 ```
+
+---
+
+Notes
+
+If the IDL changes, always update scripts/idl/anchor_escrow_idl.json and re-run pnpm generate.

@@ -66,28 +66,15 @@ export function createTransaction<TVersion extends TransactionVersion, TFeePayer
     // Auto-select version: if any provided instruction appears to use an Address Lookup Table (ALT),
     // choose `v0`. Otherwise default to `legacy`. If the caller explicitly provides `version`, use it.
     (() => {
-      const hasAlt = (() => {
-        if (!instructions || !Array.isArray(instructions)) return false;
-        return instructions.some((ix) => {
-          if (!ix || typeof ix !== "object") return false;
-          if (
-            "addressTableLookup" in ix ||
-            "addressTableLookups" in ix ||
-            "addressLookupTable" in ix ||
-            "lookupTable" in ix
-          ) {
-            return true;
-          }
-          try {
-            const s = JSON.stringify(ix);
-            return /address\s*lookup|addressTable/i.test(s) || s.includes("addressTable");
-          } catch {
-            return false;
-          }
-        });
-      })();
-
-      const selectedVersion = version ?? (hasAlt ? ("v0" as TVersion) : ("legacy" as TVersion));
+      const selectedVersion =
+        version ??
+        ((instructions.some(
+          (ix) =>
+            ("addressTableLookup" in ix && ix.addressTableLookup != null) ||
+            ("addressTableLookups" in ix && Array.isArray(ix.addressTableLookups) && ix.addressTableLookups.length > 0),
+        )
+          ? "v0"
+          : "legacy") as TVersion);
       return createTransactionMessage({ version: selectedVersion });
     })(),
     (tx) => {

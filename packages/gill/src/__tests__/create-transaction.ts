@@ -198,7 +198,7 @@ describe("createTransaction", () => {
       instructions: [instructionWithALT],
     });
 
-    assert.equal(tx.version, "v0");
+    assert.equal(tx.version, 0);
   });
 
   it("auto-detects v0 version when addressTableLookups is present", () => {
@@ -220,7 +220,7 @@ describe("createTransaction", () => {
       instructions: [instructionWithALTs],
     });
 
-    assert.equal(tx.version, "v0");
+    assert.equal(tx.version, 0);
   });
 
   it("explicit version overrides auto-detection", () => {
@@ -242,5 +242,36 @@ describe("createTransaction", () => {
     });
 
     assert.equal(tx.version, "legacy");
+  });
+
+  it("explicit auto version behaves same as no version", () => {
+    const tx = createTransaction({
+      feePayer: signer.address,
+      instructions: [],
+      version: "auto",
+    });
+
+    assert.equal(tx.version, "legacy");
+  });
+
+  it("explicit auto version with ALT detects v0", () => {
+    const instructionWithALT = {
+      accounts: [],
+      addressTableLookup: {
+        lookupTableAddress: "22222222222222222222222222222222" as Address,
+        readableIndices: [],
+        writableIndices: [],
+      },
+      data: new Uint8Array(),
+      programAddress: "11111111111111111111111111111111" as Address,
+    };
+
+    const tx = createTransaction({
+      feePayer: signer.address,
+      instructions: [instructionWithALT],
+      version: "auto",
+    });
+
+    assert.equal(tx.version, 0);
   });
 });

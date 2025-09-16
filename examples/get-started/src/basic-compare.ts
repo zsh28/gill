@@ -9,26 +9,27 @@
 import { readFileSync } from "node:fs";
 import { homedir } from "node:os";
 import { resolve } from "node:path";
+
 import {
-  pipe,
-  devnet,
-  createSolanaRpc,
+  appendTransactionMessageInstructions,
   createKeyPairFromBytes,
   createSignerFromKeyPair,
-  createTransactionMessage,
-  getSignatureFromTransaction,
+  createSolanaRpc,
   createSolanaRpcSubscriptions,
+  createTransactionMessage,
+  devnet,
+  getSignatureFromTransaction,
+  pipe,
   sendAndConfirmTransactionFactory,
-  signTransactionMessageWithSigners,
   setTransactionMessageFeePayerSigner,
-  appendTransactionMessageInstructions,
   setTransactionMessageLifetimeUsingBlockhash,
+  signTransactionMessageWithSigners,
 } from "@solana/kit";
-import { getAddMemoInstruction } from "@solana-program/memo";
 import {
   getSetComputeUnitLimitInstruction,
   getSetComputeUnitPriceInstruction,
 } from "@solana-program/compute-budget";
+import { getAddMemoInstruction } from "@solana-program/memo";
 
 const rpc = createSolanaRpc(devnet("https://api.devnet.solana.com"));
 

@@ -7,9 +7,9 @@
  * See the `@solana/kit` version in the ./basic-compare.ts file
  */
 import {
-  getExplorerLink,
-  createTransaction,
   createSolanaClient,
+  createTransaction,
+  getExplorerLink,
   getSignatureFromTransaction,
   signTransactionMessageWithSigners,
 } from "gill";
@@ -25,7 +25,8 @@ const { value: latestBlockhash } = await rpc.getLatestBlockhash().send();
 const signer = await loadKeypairSignerFromFile();
 
 const tx = createTransaction({
-  version: "legacy",
+  computeUnitLimit: 5000,
+  computeUnitPrice: 1000,
   feePayer: signer,
   instructions: [
     getAddMemoInstruction({
@@ -33,8 +34,6 @@ const tx = createTransaction({
     }),
   ],
   latestBlockhash,
-  computeUnitLimit: 5000,
-  computeUnitPrice: 1000,
 });
 
 const signedTransaction = await signTransactionMessageWithSigners(tx);

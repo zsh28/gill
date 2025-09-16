@@ -49,16 +49,18 @@ const { value: latestBlockhash } = await rpc.getLatestBlockhash().send();
  */
 const tx = pipe(
   createTransaction({
-    version: "legacy",
+    // setting a CU limit ensures their is at least one non-memo instruction
+    computeUnitLimit: 5000,
+
     feePayer: signer,
+
     instructions: [
       getAddMemoInstruction({
         memo: "gm world!",
       }),
     ],
+
     latestBlockhash,
-    // setting a CU limit ensures their is at least one non-memo instruction
-    computeUnitLimit: 5000,
   }),
   (tx) => insertReferenceKeysToTransactionMessage([reference], tx),
 );

@@ -6,10 +6,11 @@
  * This script is the `@solana/kit` version of the comparison.
  * See the `gill` version in the ./basic.ts file
  */
-import { readFileSync } from "node:fs";
-import { homedir } from "node:os";
-import { resolve } from "node:path";
-
+import {
+  getSetComputeUnitLimitInstruction,
+  getSetComputeUnitPriceInstruction,
+} from "@solana-program/compute-budget";
+import { getAddMemoInstruction } from "@solana-program/memo";
 import {
   appendTransactionMessageInstructions,
   createKeyPairFromBytes,
@@ -25,11 +26,9 @@ import {
   setTransactionMessageLifetimeUsingBlockhash,
   signTransactionMessageWithSigners,
 } from "@solana/kit";
-import {
-  getSetComputeUnitLimitInstruction,
-  getSetComputeUnitPriceInstruction,
-} from "@solana-program/compute-budget";
-import { getAddMemoInstruction } from "@solana-program/memo";
+import { readFileSync } from "node:fs";
+import { homedir } from "node:os";
+import { resolve } from "node:path";
 
 const rpc = createSolanaRpc(devnet("https://api.devnet.solana.com"));
 

@@ -14,7 +14,7 @@ import {
   buildTransferTokensTransaction,
   getAssociatedTokenAccountAddress,
   TOKEN_2022_PROGRAM_ADDRESS,
-} from "gill/programs/token";
+} from "gill/programs";
 
 /** Turn on debug mode */
 global.__GILL_DEBUG__ = true;

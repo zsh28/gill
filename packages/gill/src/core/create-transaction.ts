@@ -83,7 +83,6 @@ export function createTransaction<
   TVersion extends "auto" ? TransactionVersion : TVersion,
   TransactionMessageWithFeePayer | TransactionMessageWithFeePayerSigner
 > {
-
   return pipe(
     // Auto-select version: if any provided instruction appears to use an Address Lookup Table (ALT),
     // choose `0`. Otherwise default to `legacy`. If the caller explicitly provides `version`, use it.

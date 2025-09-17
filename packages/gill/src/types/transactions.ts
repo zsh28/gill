@@ -47,5 +47,7 @@ export type FullTransaction<
 > = Simplify<
   BaseTransactionMessage<TVersion> &
     TFeePayer &
-    (TBlockhashLifetime extends TransactionMessageWithBlockhashLifetime ? TransactionMessageWithBlockhashLifetime : object)
+    (TBlockhashLifetime extends TransactionMessageWithBlockhashLifetime
+      ? TransactionMessageWithBlockhashLifetime
+      : object)
 >;

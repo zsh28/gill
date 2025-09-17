@@ -77,13 +77,9 @@ console.log("latestBlockhash:", latestBlockhash);
  * - this will use the original SPL token by default (`TOKEN_PROGRAM_ADDRESS`)
  */
 const createTokenTx = await buildCreateTokenTransaction({
-  // updateAuthority, // default=same as the `feePayer`
-  decimals: 2,
-
   feePayer: signer,
-
   latestBlockhash,
-
+  mint,
   // mintAuthority, // default=same as the `feePayer`
   metadata: {
     isMutable: true, // if the `updateAuthority` can change this metadata in the future
@@ -91,8 +87,8 @@ const createTokenTx = await buildCreateTokenTransaction({
     symbol: "OPOS",
     uri: "https://raw.githubusercontent.com/solana-developers/opos-asset/main/assets/Climate/metadata.json",
   },
-
-  mint, // default=9,
+  // updateAuthority, // default=same as the `feePayer`
+  decimals: 2, // default=9,
   tokenProgram, // default=TOKEN_PROGRAM_ADDRESS, token22 also supported
   // default cu limit set to be optimized, but can be overridden here
   // computeUnitLimit?: number,
@@ -143,19 +139,14 @@ const mintToDestination = address(
  * - ensure the `mintAuthority` is the correct signer in order to actually mint new tokens
  */
 const mintTokensTx = await buildMintTokensTransaction({
-  amount: 2000,
-  // note: be sure to consider the mint's `decimals` value
+  feePayer: signer,
+  latestBlockhash,
+  mint,
+  mintAuthority: signer,
+  amount: 2000, // note: be sure to consider the mint's `decimals` value
   // if decimals=2 => this will mint 20.00 tokens
   // if decimals=4 => this will mint 0.200 tokens
   destination: mintToDestination,
-
-  feePayer: signer,
-
-  latestBlockhash,
-
-  mint,
-
-  mintAuthority: signer,
   // use the correct token program for the `mint`
   tokenProgram, // default=TOKEN_PROGRAM_ADDRESS
   // default cu limit set to be optimized, but can be overridden here
@@ -190,7 +181,7 @@ await sendAndConfirmTransaction(signedTransaction);
  *
  * In this case, we are checking our original wallet's ata
  */
-const { value: postMintBalance } = await rpc
+let { value: postMintBalance } = await rpc
   .getTokenAccountBalance(
     await getAssociatedTokenAccountAddress(
       mint,
@@ -226,18 +217,14 @@ const authority = address("7sZoCrE3cGgEpNgxcPnGffDeWfTewKnk6wWdLxmYA7Cy");
  * - ensure the `mintAuthority` is the correct signer in order to actually mint new tokens
  */
 const transferTokensTx = await buildTransferTokensTransaction({
-  amount: 900,
+  feePayer: signer,
+  latestBlockhash,
+  mint,
   authority,
-  // note: be sure to consider the mint's `decimals` value
+  amount: 900, // note: be sure to consider the mint's `decimals` value
   // if decimals=2 => this will mint 9.00 tokens
   // if decimals=4 => this will mint 0.090 tokens
   destination: transferToDestination,
-
-  feePayer: signer,
-
-  latestBlockhash,
-
-  mint,
   // use the correct token program for the `mint`
   tokenProgram, // default=TOKEN_PROGRAM_ADDRESS
   // default cu limit set to be optimized, but can be overridden here

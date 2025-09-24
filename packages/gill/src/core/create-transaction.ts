@@ -1,3 +1,4 @@
+import { getSetComputeUnitLimitInstruction, getSetComputeUnitPriceInstruction } from "@solana-program/compute-budget";
 import type {
   Address,
   TransactionMessageWithBlockhashLifetime,
@@ -16,8 +17,6 @@ import {
   setTransactionMessageFeePayerSigner,
   setTransactionMessageLifetimeUsingBlockhash,
 } from "@solana/kit";
-import { getSetComputeUnitLimitInstruction, getSetComputeUnitPriceInstruction } from "@solana-program/compute-budget";
-
 import type { Simplify } from "../types";
 import type { CreateTransactionInput, FullTransaction } from "../types/transactions";
 

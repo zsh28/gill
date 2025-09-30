@@ -1,4 +1,4 @@
-// TODO createInstruction().withMemo().withPriorityFee().withComputeLimit().sendSol().sendToken()
+// TODO createInstruction().withMemo().withPriorityFee().withComputeLimit().transferSol().transferTokens()
 
 import {
   Address,
@@ -21,8 +21,6 @@ import {
 
 interface InstructionBuilder {
   instructions: Instruction[];
-  computeUnitLimit?: number;
-  computeUnitPrice?: number;
   withMemo: (message: string, signers?: Array<TransactionPartialSigner | TransactionSigner>) => InstructionBuilder;
   withPriorityFee: (microLamports: number) => InstructionBuilder;
   withComputeLimit: (units: number) => InstructionBuilder;
@@ -45,7 +43,7 @@ interface ITransferTokens {
   amount: number | bigint;
   mint: Address;
   authority?: TransactionSigner | Address;
-  tokenProgram: Address;
+  tokenProgram?: Address;
 }
 
 /**
@@ -54,13 +52,11 @@ interface ITransferTokens {
  @example typedef
   interface InstructionBuilder {
   instructions: Instruction[];
-  computeUnitLimit?: number;
-  computeUnitPrice?: number;
   withMemo: (message: string, signers?: Array<TransactionPartialSigner | TransactionSigner>) => InstructionBuilder;
   withPriorityFee: (microLamports: number) => InstructionBuilder;
   withComputeLimit: (units: number) => InstructionBuilder;
-  sendSol: (amount: Lamports, destination: Address, source: TransactionPartialSigner) => InstructionBuilder;
-  sendToken: (config: ISendToken) => InstructionBuilder;
+  transferSol: (amount: Lamports, destination: Address, source: TransactionPartialSigner) => InstructionBuilder;
+  transferTokens: (config: ITransferTokens) => InstructionBuilder;
   build: (
     feePayer: Address | TransactionPartialSigner | TransactionSigner,
     options?: {
@@ -73,48 +69,55 @@ interface ITransferTokens {
  * @example 
   let new_ix = createInstruction()
     .withMemo("Hello, this is an ix")
-    .sendSol(lamports(lamportsToSend), destinationAddres, kp)
-    .sendToken({
-      amount: 1_000_000,
+    .transferSol(lamports(lamportsToSend), destinationAddres, kp)
+    .transferTokens({
+      amount: 5_000_000,
       destinationAta,
       sourceAta,
-      from: kp,
+      source: kp,
       mint: tokenMint,
-      to: destinationAddres,
+      destination: destinationAddres,
       tokenProgram: TOKEN_PROGRAM_ADDRESS,
     })
     .build(kp, {
       version: "legacy",
     });
+  const txSignature = await sendAndConfirmTransaction(new_ix);
+
+  console.log(
+    "Explorer airdrop:",
+    getExplorerLink({
+      cluster: "devnet",
+      transaction: txSignature,
+    })
+  );
  */
 export const createInstruction = (): InstructionBuilder => {
-  const builder = (
-    instructions: Instruction[] = [],
-    computeUnitLimit?: number,
-    computeUnitPrice?: number,
-  ): InstructionBuilder => ({
+  const builder = (instructions: Instruction[] = []): InstructionBuilder => ({
     instructions,
-    computeUnitLimit,
-    computeUnitPrice,
 
     withMemo: (message: string, signers?) => {
       const memoIx = getAddMemoInstruction({ memo: message, signers });
-      return builder([...instructions, memoIx]);
+      instructions.push(memoIx);
+      return builder(instructions);
     },
 
     withPriorityFee: (microLamports: number) => {
       const priorityIx = getSetComputeUnitPriceInstruction({ microLamports });
-      return builder([...instructions, priorityIx]);
+      instructions.push(priorityIx);
+      return builder(instructions);
     },
 
     withComputeLimit: (units: number) => {
       const computeIx = getSetComputeUnitLimitInstruction({ units });
-      return builder([...instructions, computeIx]);
+      instructions.push(computeIx);
+      return builder(instructions);
     },
 
     transferSol: (amount, destination, source) => {
       const transferIx = getTransferSolInstruction({ amount, destination, source });
-      return builder([...instructions, transferIx]);
+      instructions.push(transferIx);
+      return builder(instructions);
     },
 
     transferTokens: (config: ITransferTokens) => {
@@ -122,14 +125,14 @@ export const createInstruction = (): InstructionBuilder => {
         feePayer: config.source,
         mint: config.mint,
         amount: config.amount,
-        authority: config.authority ? config.authority : config.source,
+        authority: config.authority ?? config.source,
         sourceAta: config.sourceAta,
         destination: config.destination,
         destinationAta: config.destinationAta,
-        tokenProgram: config.tokenProgram ? config.tokenProgram : TOKEN_PROGRAM_ADDRESS,
+        tokenProgram: config.tokenProgram ?? TOKEN_PROGRAM_ADDRESS,
       });
-
-      return builder([...instructions, ...tokenIx]);
+      instructions.push(...tokenIx);
+      return builder(instructions);
     },
 
     build: (feePayer, options?) => {
@@ -137,8 +140,6 @@ export const createInstruction = (): InstructionBuilder => {
         instructions,
         feePayer,
         latestBlockhash: options?.latestBlockhash,
-        computeUnitLimit,
-        computeUnitPrice,
         version: options?.version,
       });
     },

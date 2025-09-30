@@ -54,13 +54,11 @@ interface ITransferTokens {
  @example typedef
   interface InstructionBuilder {
   instructions: Instruction[];
-  computeUnitLimit?: number;
-  computeUnitPrice?: number;
   withMemo: (message: string, signers?: Array<TransactionPartialSigner | TransactionSigner>) => InstructionBuilder;
   withPriorityFee: (microLamports: number) => InstructionBuilder;
   withComputeLimit: (units: number) => InstructionBuilder;
-  sendSol: (amount: Lamports, destination: Address, source: TransactionPartialSigner) => InstructionBuilder;
-  sendToken: (config: ISendToken) => InstructionBuilder;
+  transferSol: (amount: Lamports, destination: Address, source: TransactionPartialSigner) => InstructionBuilder;
+  transferTokens: (config: ITransferTokens) => InstructionBuilder;
   build: (
     feePayer: Address | TransactionPartialSigner | TransactionSigner,
     options?: {
@@ -73,20 +71,30 @@ interface ITransferTokens {
  * @example 
   let new_ix = createInstruction()
     .withMemo("Hello, this is an ix")
-    .sendSol(lamports(lamportsToSend), destinationAddres, kp)
-    .sendToken({
-      amount: 1_000_000,
+    .transferSol(lamports(lamportsToSend), destinationAddres, kp)
+    .transferTokens({
+      amount: 5_000_000,
       destinationAta,
       sourceAta,
-      from: kp,
+      source: kp,
       mint: tokenMint,
-      to: destinationAddres,
+      destination: destinationAddres,
       tokenProgram: TOKEN_PROGRAM_ADDRESS,
     })
     .build(kp, {
       version: "legacy",
     });
+  const txSignature = await sendAndConfirmTransaction(new_ix);
+
+  console.log(
+    "Explorer airdrop:",
+    getExplorerLink({
+      cluster: "devnet",
+      transaction: txSignature,
+    })
+  );
  */
+
 export const createInstruction = (): InstructionBuilder => {
   const builder = (
     instructions: Instruction[] = [],
